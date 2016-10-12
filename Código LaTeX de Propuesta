@@ -1,0 +1,65 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8x]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\title{Propuesta de Proyecto: Sistema de seguridad, control de acceso y vigilancia remota}
+\author{Elizabeth Rodríguez C./Urías Cascante S.}
+\date{\today}
+
+
+\newcommand\MYhyperrefoptions{bookmarks=true,bookmarksnumbered=true,
+pdfpagemode={UseOutlines},plainpages=false,pdfpagelabels=true,
+colorlinks=true,linkcolor={black},citecolor={black},
+urlcolor={black}}
+
+\usepackage[\MYhyperrefoptions]{hyperref}
+
+\begin{document}
+\hypersetup{pdftitle={Propuesta de Proyecto: Sistema de seguridad, control de acceso y vigilancia remota},
+pdfsubject={BINGE-61 Microcontroladores.},
+pdfauthor={Elizabeth Rodríguez C. - Urías Cascante S.},
+pdfkeywords={microcontroladores, electrónica, digital, sensores, alarma, camara}}
+
+\renewcommand{\leftmark}{UNIVERSIDAD LATINA DE COSTA RICA -- BINGE-61 Microcontroladores.}
+
+\maketitle
+ 
+\section{Descripción}
+
+Con este proyecto se pretende implementar un sistema de vigilancia y seguridad funcional y eficiente de bajo consto económico, integrando varios elementos de seguridad y monitoreo dentro de un mismo sistema. 
+Los elementos de seguridad que se implementarán son: 
+
+\begin{itemize}
+\item Cámara de vigilancia.
+\item Sensores de movimiento, humo y temperatura.
+\item Alarma audible y alarma luminosa.
+\item Una cerradura controlada por teclado y/o reconocimiento facial para controlar el acceso a la propiedad o habitación.
+\end{itemize}
+
+De forma opcional, el sistema también tendrá una aplicación para poder monitorear y controlar la cámara de vigilancia y los estados de las alarmas desde dispositivos móviles.  
+
+\section{Requerimientos}
+
+Los requerimientos enumerados en la siguiente lista son necesarios para el correcto funcionamiento del sistema.
+
+\begin{itemize}
+\item Integrar y controlar cámara de vigilancia.
+\item Controlar sensor de movimiento.  
+\item Controlar sensor de gas.
+\item Controlar sensor de temperatura. 
+\item Controlar buzzer.  
+\item Controlar LEDs.
+\item Controlar cerradura eléctrica. 
+\item Integrar y programar keypad de 4x4. 
+\item Integrar y controlar display LCD.
+\end{itemize}
+
+A continuación, se enumeran los requerimientos opcionales que mejorarían el funcionamiento del sistema. 
+
+\begin{itemize}
+\item Integrar, programar y controlar cámara para reconocimiento facial.
+\item Programar e integrar aplicación de monitoreo y control para dispositivos móviles.
+\end{itemize}
+
+\end{document} 
