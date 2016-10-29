@@ -1,3 +1,7 @@
+/* NOTAS IMPORTATES:
+ *  Aun no se que tan necesarios sean los ciclos while, hacer pruebas con ellos y sin ellos
+ */
+ 
 //Incluyendo Librerias
 #include <Servo.h>
 #include <LiquidCrystal.h>
@@ -39,13 +43,23 @@ const int pir = A0; //sensor de movimiento
 const int temp = A2; //sensor de temperatura
 const int humo = A3; //sensor de humo 
 const int buzzer1 = 11; //buzzer para las alarmas
+const int buzzer2 = 12; //buzzer para el panel de control
+
 
 //Otras Variables y Constantes 
 unsigned long tiempoAnterior = 0;
-int salida = 0; //Dato que va hacia la raspi para saber en que estado esta el arduino y asi poder tomar decisiones
+String password = "2580"; //Master pass por defecto.
+String modNoche = "1234"; //Pass para activar modo nocturno
+String tempPass = ""; //este va a guardar temporalmanete la pass que uno mete para compararla con las claves guardadas
+boolean passVerificada = false;
+boolean passCambiada = false;
+boolean passGuardada = true;
+int dobleCheck; //Contador para confirmar la nueva clave.
+int i = 1; //Contador para arreglos
+
 
 void setup() {
- Serial.begin(9600);
+ Serial.begin(9600);//para efectos de la raspi 0: desarme, 1:Fuego, 2:Intruso
  cerradura.attach(2);
  lcd.begin(16,2);
  
@@ -62,9 +76,58 @@ void loop() {
 
 //---Fuciones de salida para los estados---
 
-//------Estado Fuego------
+//---Estado Fuego---
+void estadoFuego (){
+  fuego: //etiqueta para goto
+  cerradura.write(abierta);
+  sonidoFuego()
+  serial.print(1);
+  tempPass = "";
+  lcd.clear();
+  i = 5;
+  while(!passVerificada){
+  lcd.setCursor(0,0);
+  lcd.print("¡Alerta Fuego!");
+  lcd.setCursor(0,1);
+  lcd.print("PASS>>");
+  teclaPresionada = teclado.getKey(); //va a leer las teclas que se precionen
+    if(teclaPresionada != NO_KEY){ //para que no guarde espacios en blanco mentras no se precionan teclas
+      if(teclaPresionada==0 || teclaPresionada==1 || teclaPresionada==2 || teclaPresionada==3 || teclaPresionada==4 ||
+         teclaPresionada==5 || teclaPresionada==6 || teclaPresionada==7 || teclaPresionada==8 || teclaPresionada==9 )
+      {
+        //este ciclo tiene dos funciones "pedir" la password y poner * en lugar de los caracteres para mentener la password escondida 
+       tempPass += teclaPresionada;
+       lcd.setCursor(i,1);
+       lcd.print("*");
+       i++;
+       tone(buzzer2,800,200);
+      }
+      else if(teclaPresionada == "#"){ //cancelar la opracion
+        break;
+      }
+      else if(teclapresionada == "*"){//verificar la pasword
+        if(password == tempPass){
+          lcd.clear();
+          lcd.setCursor(0,0);
+          lcd.print("Sistema Desarmado");
+          lcd.setCursor(0,1);
+          lcd.print("----------------");
+          tone(buzzer2,800,1000);
+          //pasa a estado Desarme, falta esa bariable           
+        }
+        else{
+          tempPass="";
+          tone(buzzer2,500,500);
+          goto fuego;          
+        }
+      }
+    }
+  }
+} 
 
 
+
+//-----------Funciones de Sonido-----------
 //------------Sonido de Espera------------ 
 unsigned long  SE_tiempoAnterior = 0;
 void sonidoEspera(){
