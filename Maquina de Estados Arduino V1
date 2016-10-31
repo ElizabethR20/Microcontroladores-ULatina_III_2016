@@ -64,7 +64,7 @@ void setup() {
  lcd.begin(16,2);
  
  pinMode(pir, INPUT);
- pinMode(redSwitch,INPUT);
+ //pinMode(redSwitch,INPUT);
  pinMode(temp, INPUT); 
  
 }
@@ -84,7 +84,7 @@ void estadoFuego (){
   serial.print(1);
   tempPass = "";
   lcd.clear();
-  i = 5;
+  i = 6;
   while(!passVerificada){
   lcd.setCursor(0,0);
   lcd.print("¡Alerta Fuego!");
